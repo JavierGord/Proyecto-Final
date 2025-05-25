@@ -1,0 +1,114 @@
+<!-- Documento HTML para la página de soluciones relacionadas con contaminación del aire -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Definición del conjunto de caracteres -->
+    <meta charset="UTF-8">
+    <!-- Configuración para hacer la página responsiva en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Soluciones - Contaminación del Aire</title>
+    <!-- Importación del CSS de Bootstrap desde CDN para estilos predefinidos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace al archivo de estilos personalizado -->
+    <link rel="stylesheet" href="proyect_styles.css">
+</head>
+<body>
+    <!-- Barra de navegación principal de la página -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Contenedor fluido para que el navbar ocupe todo el ancho -->
+        <div class="container-fluid">
+            <!-- Marca o nombre del sitio web -->
+            <a class="navbar-brand" href="#">Contaminación del Aire</a>
+            <!-- Botón hamburguesa visible en pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span> <!-- Ícono del botón -->
+            </button>
+
+            <!-- Contenedor colapsable que se muestra/oculta con el botón hamburguesa -->
+            <div class="collapse navbar-collapse" id="navbarContenido">
+                <!-- Lista de enlaces del menú -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="proyecto.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Soluciones</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal con padding vertical para separar contenido -->
+    <div class="container py-5">
+        <!-- Título principal de la sección -->
+        <h2 class="mb-4">¿Cómo reducir la contaminación del aire?</h2>
+        <!-- Fila de Bootstrap para crear columnas responsivas -->
+        <div class="row">
+            <!-- Columna para acciones individuales (6 columnas en dispositivos md o superiores) -->
+            <div class="col-md-6">
+                <!-- Tarjeta con sombra para resaltar contenido -->
+                <div class="card mb-3 shadow">
+                    <!-- Cuerpo de la tarjeta con contenido -->
+                    <div class="card-body">
+                        <!-- Título de la tarjeta con color azul -->
+                        <h5 class="card-title text-primary">Acciones Individuales</h5>
+                        <!-- Lista con las acciones individuales recomendadas -->
+                        <ul>
+                            <li>Usar transporte público, bicicleta o caminar.</li>
+                            <li>Evitar quemar basura o usar leña.</li>
+                            <li>Revisar emisiones de vehículos.</li>
+                            <li>Reducir el consumo de energía en casa.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna para acciones gubernamentales (6 columnas en md o superiores) -->
+            <div class="col-md-6">
+                <!-- Tarjeta con sombra similar a la anterior -->
+                <div class="card mb-3 shadow">
+                    <!-- Cuerpo de la tarjeta -->
+                    <div class="card-body">
+                        <!-- Título de la tarjeta con color verde -->
+                        <h5 class="card-title text-success">Acciones Gubernamentales</h5>
+                        <!-- Lista con acciones que puede implementar el gobierno -->
+                        <ul>
+                            <li>Implementar zonas de bajas emisiones.</li>
+                            <li>Fomentar políticas de movilidad sostenible.</li>
+                            <li>Monitorear la calidad del aire en tiempo real.</li>
+                            <li>Educar a la población sobre los efectos del smog.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta para el formulario de contacto con margen superior y padding -->
+        <div class="card mt-5 p-4 shadow">
+            <!-- Título del formulario -->
+            <h4>Contáctanos</h4>
+            <!-- Breve texto introductorio -->
+            <p>¿Tienes alguna propuesta o duda? Escríbenos:</p>
+            <!-- Formulario estático sin acción definida -->
+            <form>
+                <!-- Campo de texto para el nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                </div>
+                <!-- Campo para correo electrónico -->
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" placeholder="ejemplo@email.com">
+                </div>
+                <!-- Área de texto para mensaje -->
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="mensaje" rows="4" placeholder="Tu mensaje"></textarea>
+                </div>
+                <!-- Botón para enviar el formulario -->
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

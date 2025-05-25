@@ -1,0 +1,144 @@
+/* proyect_styles.css mejorado con detalles visuales atractivos */
+
+/* Variables de color definidas para usar de forma consistente en todo el CSS */
+:root {
+  --rojo: #3da4c0;            /* Color principal rojo-azulado */
+  --verde: #2a9d8f;           /* Color verde suave */
+  --gris-claro: #f1faee;      /* Gris muy claro para fondos */
+  --gris-oscuro: #1d3557;     /* Gris oscuro para textos y fondos */
+  --azul: #457b9d;            /* Azul medio para títulos y botones */
+  --fuente-principal: 'Poppins', sans-serif;  /* Fuente principal */
+}
+
+/* Importación de la fuente Poppins desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Estilo general del cuerpo de la página */
+body {
+  font-family: var(--fuente-principal);   /* Aplica la fuente principal */
+  background-color: var(--gris-claro);   /* Fondo gris claro */
+  color: #333;                           /* Color de texto gris oscuro */
+  margin: 0;                            /* Elimina margen por defecto */
+  padding: 0;                           /* Elimina padding por defecto */
+  scroll-behavior: smooth;              /* Suaviza el desplazamiento */
+}
+
+/* Estilos para la barra de navegación (navbar) */
+.navbar {
+  margin-bottom: 0;                   /* Sin margen inferior */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra sutil debajo */
+}
+
+/* Estilo para la marca o nombre en el navbar */
+.navbar-brand {
+  font-weight: bold;                /* Texto en negrita */
+  color: white !important;          /* Color blanco forzado */
+  letter-spacing: 1px;              /* Espaciado entre letras */
+}
+
+/* Estilo para los enlaces del navbar */
+.nav-link {
+  font-weight: 500;                 /* Peso medio en fuente */
+  color: #ffffffb3 !important;     /* Blanco con transparencia */
+  transition: color 0.3s ease;     /* Transición suave en color */
+}
+
+/* Cambio de color al pasar el mouse por encima del enlace */
+.nav-link:hover {
+  color: var(--verde) !important;  /* Cambia a verde definido */
+}
+
+/* Estilos para las tarjetas (cards) */
+.card {
+  border-radius: 1rem;              /* Bordes redondeados */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  border: none;                    /* Sin borde visible */
+}
+
+/* Efecto hover para tarjetas: levanta y agrega sombra */
+.card:hover {
+  transform: translateY(-5px);     /* Eleva la tarjeta 5px */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);  /* Sombra más intensa */
+}
+
+/* Estilo para el título dentro de las tarjetas */
+.card-title {
+  font-weight: 600;                /* Texto seminegrita */
+  color: var(--azul);              /* Color azul definido */
+}
+
+/* Estilo para un indicador visual con id "indicadorRiesgo" */
+#indicadorRiesgo {
+  font-size: 1.25rem;              /* Tamaño de fuente aumentado */
+  border-radius: 0.5rem;           /* Bordes ligeramente redondeados */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra interna */
+}
+
+/* Estilos para botones con clase btn-danger (botón rojo) */
+.btn-danger {
+  background-color: var(--rojo);  /* Fondo rojo definido */
+  border-color: var(--rojo);      /* Borde rojo */
+  font-weight: 500;               /* Fuente con peso medio */
+}
+
+/* Estilos para botones con clase btn-primary (botón azul) */
+.btn-primary {
+  background-color: var(--azul);  /* Fondo azul definido */
+  border-color: var(--azul);      /* Borde azul */
+  font-weight: 500;               /* Fuente con peso medio */
+}
+
+/* Estilo para botones con clase btn-light */
+.btn-light {
+  color: var(--gris-oscuro);      /* Texto gris oscuro */
+  font-weight: 500;               /* Fuente con peso medio */
+}
+
+/* Estilos para inputs y textareas dentro de formularios */
+form input,
+form textarea {
+  border-radius: 0.5rem;          /* Bordes redondeados */
+  border: 1px solid #ccc;         /* Borde gris claro */
+  transition: border-color 0.3s; /* Transición suave en el borde */
+}
+
+/* Efecto al enfocar (focus) inputs y textareas */
+form input:focus,
+form textarea:focus {
+  border-color: var(--azul);      /* Cambia borde a azul */
+  outline: none;                  /* Elimina el contorno por defecto */
+}
+
+/* Fondo rojo para clases bg-danger, importante para sobrescribir otros estilos */
+.bg-danger {
+  background-color: var(--rojo) !important;
+}
+
+/* Fondo gris claro para clases bg-light */
+.bg-light {
+  background-color: var(--gris-claro) !important;
+}
+
+/* Texto blanco para clases text-white */
+.text-white {
+  color: white;
+}
+
+/* Media query para pantallas pequeñas (máximo 768px) */
+@media (max-width: 768px) {
+  /* Reduce tamaño de encabezados grandes */
+  h1.display-4 {
+    font-size: 2rem;
+  }
+
+  /* Margen inferior para tarjetas para separar verticalmente */
+  .card {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Fondo y padding para el menú colapsado en dispositivos móviles */
+  nav .navbar-collapse {
+    background-color: var(--gris-oscuro);
+    padding: 1rem;
+  }
+}

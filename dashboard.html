@@ -1,0 +1,213 @@
+<!-- dashboard.html con carrusel agregado -->
+<!DOCTYPE html>
+<html lang="es"> <!-- Documento en idioma español -->
+<head>
+    <meta charset="UTF-8"> <!-- Codificación UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive para móviles -->
+    <title>Dashboard de Contaminación</title> <!-- Título de la pestaña -->
+
+    <!-- Bootstrap CSS para estilos y diseño responsivo -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="proyect_styles.css">
+    <!-- Biblioteca Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid"> <!-- Contenedor que ocupa todo el ancho -->
+            <a class="navbar-brand" href="#">Contaminación del Aire</a> <!-- Marca o nombre -->
+
+            <!-- Botón hamburguesa: aparece en pantallas pequeñas y despliega el menú -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú que se colapsa / expande al usar el botón hamburguesa -->
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto"> <!-- Lista de enlaces de navegación -->
+                    <li class="nav-item"><a class="nav-link" href="proyecto.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li> <!-- Página actual -->
+                    <li class="nav-item"><a class="nav-link" href="soluciones.html">Soluciones</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal con margen vertical -->
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Calidad del Aire - Zona Urbana</h2> <!-- Título centrado -->
+
+        <!-- Carrusel para mostrar mensajes educativos -->
+        <div id="infoCarrusel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Primer ítem activo del carrusel -->
+                <div class="carousel-item active">
+                    <div class="d-block w-100 bg-light p-4 rounded text-center">
+                        <h5>¿Sabías que…?</h5>
+                        <p>Las partículas PM2.5 pueden penetrar profundamente en los pulmones y entrar en el torrente sanguíneo.</p>
+                    </div>
+                </div>
+                <!-- Segundo ítem del carrusel -->
+                <div class="carousel-item">
+                    <div class="d-block w-100 bg-light p-4 rounded text-center">
+                        <h5>Consejo</h5>
+                        <p>Evita las zonas con tráfico denso en horas pico. La contaminación es más alta.</p>
+                    </div>
+                </div>
+                <!-- Tercer ítem del carrusel -->
+                <div class="carousel-item">
+                    <div class="d-block w-100 bg-light p-4 rounded text-center">
+                        <h5>Dato Curioso</h5>
+                        <p>La contaminación del aire causa más muertes que los accidentes de tráfico cada año.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón para ir al ítem anterior -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#infoCarrusel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <!-- Botón para ir al siguiente ítem -->
+            <button class="carousel-control-next" type="button" data-bs-target="#infoCarrusel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+
+        <!-- Sección del mapa simulado -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="card-title">Mapa Simulado</h5>
+            <!-- Imagen que representa el mapa con zonas coloreadas -->
+            <img src="imagen1.jpg" class="img-fluid rounded" alt="Mapa urbano con zonas" style="max-height: 400px;">
+            <p class="mt-2">Zonas coloreadas de manera ilustrativa según niveles de PM2.5.</p>
+        </div>
+
+        <!-- Sección de gráfica de PM2.5 -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="card-title">Tendencia Horaria de PM2.5</h5>
+            <!-- Canvas donde se dibuja la gráfica con Chart.js -->
+            <canvas id="graficaPM25"></canvas>
+        </div>
+
+        <!-- Indicador visual tipo semáforo para nivel de riesgo -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="card-title">Nivel de Riesgo Actual</h5>
+            <!-- Div que mostrará el nivel de riesgo con colores y texto -->
+            <div id="indicadorRiesgo" class="p-3 rounded text-white fw-bold text-center">
+                Riesgo: Moderado <!-- Valor inicial estático, será actualizado por JS -->
+            </div>
+        </div>
+
+        <!-- Sección de recomendaciones dinámicas -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="card-title">Recomendaciones</h5>
+            <!-- Lista donde se insertarán dinámicamente los consejos -->
+            <ul id="recomendacionesDinamicas">
+                <!-- Recomendaciones dinámicas aparecerán aquí -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Script con lógica para la gráfica y actualización dinámica -->
+    <script>
+        // Obtener el contexto del canvas para dibujar la gráfica
+        const ctx = document.getElementById('graficaPM25').getContext('2d');
+        
+        // Crear una gráfica de barras con Chart.js
+        const grafica = new Chart(ctx, {
+            type: 'bar', // Tipo de gráfica: barras
+            data: {
+                labels: ['6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00'], // Etiquetas en el eje X (horas)
+                datasets: [{
+                    label: 'PM2.5 (µg/m3)', // Etiqueta para la leyenda
+                    data: [35, 42, 55, 70, 60, 45, 30], // Valores de PM2.5 para cada hora
+                    borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de relleno semitransparente
+                    borderWidth: 2, // Grosor del borde
+                    tension: 0.3 // Suavizado de líneas (no afecta barras pero está por defecto)
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true // Eje Y empieza desde cero
+                    }
+                }
+            }
+        });
+
+        // Variables para mostrar el nivel de riesgo y recomendaciones
+        const riesgo = document.getElementById('indicadorRiesgo');
+        const recomendaciones = document.getElementById('recomendacionesDinamicas');
+        const horaActual = new Date().getHours(); // Obtener la hora actual local
+        let valorPM;
+
+        // Asignar un valor simulado de PM2.5 basado en la hora actual
+        if (horaActual >= 6 && horaActual < 10) {
+            valorPM = 30; // Nivel bajo de contaminación en la mañana
+        } else if (horaActual >= 10 && horaActual < 14) {
+            valorPM = 50; // Nivel moderado a mediodía
+        } else if (horaActual >= 14 && horaActual < 18) {
+            valorPM = 70; // Nivel alto en la tarde
+        } else if (horaActual >= 18 && horaActual <= 23) {
+            valorPM = 45; // Moderado en la noche
+        } else {
+            valorPM = 25; // Bajo durante la madrugada
+        }
+
+        // Variables para almacenar el nivel de riesgo, color y consejos correspondientes
+        let nivel = '';
+        let color = '';
+        let consejos = [];
+
+        // Determinar nivel de riesgo, color y recomendaciones según valor de PM2.5
+        if (valorPM > 60) {
+            nivel = 'Riesgo: Alto';
+            color = 'red';
+            consejos = [
+                'Evite salir al aire libre.',
+                'Use mascarillas con filtro (N95 o superior).',
+                'Cierre puertas y ventanas.',
+                'Utilice purificadores de aire si es posible.'
+            ];
+        } else if (valorPM > 35) {
+            nivel = 'Riesgo: Moderado';
+            color = 'orange';
+            consejos = [
+                'Limite actividades físicas prolongadas en el exterior.',
+                'Personas sensibles deben evitar exposición prolongada.',
+                'Use mascarilla si se siente incómodo.'
+            ];
+        } else {
+            nivel = 'Riesgo: Bajo';
+            color = 'green';
+            consejos = [
+                'Puede realizar actividades al aire libre con normalidad.',
+                'Mantenga hábitos saludables de ventilación.',
+                'Evite fuentes de contaminación innecesarias.'
+            ];
+        }
+
+        // Actualizar el color de fondo y texto del indicador de riesgo
+        riesgo.style.backgroundColor = color;
+        riesgo.textContent = nivel;
+
+        // Limpiar recomendaciones anteriores
+        recomendaciones.innerHTML = '';
+
+        // Insertar las recomendaciones actuales como elementos <li> en la lista
+        consejos.forEach(consejo => {
+            const li = document.createElement('li');
+            li.textContent = consejo;
+            recomendaciones.appendChild(li);
+        });
+    </script>
+
+    <!-- Bootstrap JS para funcionalidades dinámicas como el carrusel -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

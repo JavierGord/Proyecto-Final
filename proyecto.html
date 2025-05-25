@@ -1,0 +1,92 @@
+<!-- proyecto.html mejorado con menú hamburguesa -->
+<!DOCTYPE html>
+<html lang="es"> <!-- Define que el idioma principal del documento es español -->
+<head>
+    <meta charset="UTF-8"> <!-- Establece codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que la página sea responsive -->
+    <title>Inicio - Contaminación del Aire</title> <!-- Título que aparece en la pestaña del navegador -->
+
+    <!-- Importación de Bootstrap CSS desde CDN para estilos predefinidos y responsivos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Importación de la hoja de estilos personalizada para la página -->
+    <link rel="stylesheet" href="proyect_styles.css">
+</head>
+<body>
+    <!-- Navbar: barra de navegación superior con menú hamburguesa -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid"> <!-- Contenedor fluido que se adapta al ancho de la pantalla -->
+            <a class="navbar-brand" href="#">Contaminación del Aire</a> <!-- Nombre o marca del sitio -->
+
+            <!-- Botón hamburguesa para pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Contenido colapsable de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav me-auto"> <!-- Lista de enlaces de navegación -->
+                    <li class="nav-item">
+                        <!-- Enlace activo a la página actual "Inicio" -->
+                        <a class="nav-link active" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Enlace al Dashboard -->
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Enlace a la sección de Soluciones -->
+                        <a class="nav-link" href="soluciones.html">Soluciones</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de bienvenida principal -->
+    <header class="bg-light text-center py-5"> <!-- Fondo claro, texto centrado, padding vertical -->
+        <div class="container"> <!-- Contenedor para centrar y ajustar el contenido -->
+            <h1 class="display-4">Contaminación del Aire en Zonas Urbanas</h1> <!-- Título principal grande -->
+            <p class="lead">Conoce el impacto de las partículas PM2.5 y PM10 en tu salud y cómo protegerte.</p> <!-- Texto descriptivo -->
+
+            <!-- Botón grande y rojo que enlaza al Dashboard -->
+            <a href="dashboard.html" class="btn btn-danger btn-lg mt-3">Explorar Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Sección informativa en dos columnas -->
+    <section class="container py-5"> <!-- Contenedor con padding vertical -->
+        <div class="row"> <!-- Fila para organizar columnas horizontalmente -->
+
+            <div class="col-md-6"> <!-- Columna que ocupa la mitad del ancho en pantallas medianas en adelante -->
+                <h3>¿Por qué es un problema?</h3> <!-- Subtítulo -->
+                <p>La contaminación atmosférica es responsable de enfermedades respiratorias, cardiovasculares y muertes prematuras. Según la OMS, el 90% de la población mundial respira aire contaminado.</p> <!-- Explicación -->
+            </div>
+
+            <div class="col-md-6"> <!-- Segunda columna también mitad del ancho -->
+                <h3>¿Qué son PM2.5 y PM10?</h3> <!-- Subtítulo -->
+                <p>
+                    <strong>PM2.5:</strong> Partículas finas menores a 2.5 µm, como humo de vehículos.<br>
+                    <strong>PM10:</strong> Partículas menores a 10 µm, como polvo, polen o esporas.
+                </p> <!-- Explicación de términos importantes -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Llamado a la acción con fondo rojo y texto blanco -->
+    <section class="bg-danger text-white text-center py-4"> <!-- Fondo rojo, texto blanco, centrado, padding vertical -->
+        <div class="container">
+            <h4>¿Sabías que puedes reducir tu exposición?</h4> <!-- Subtítulo -->
+            <p>Consulta el nivel actual de calidad del aire en tu zona y toma decisiones informadas.</p> <!-- Texto motivacional -->
+
+            <!-- Botón claro que enlaza a la página de recomendaciones -->
+            <a href="soluciones.html" class="btn btn-light">Ver Recomendaciones</a>
+        </div>
+    </section>
+
+    <!-- Script de Bootstrap para funcionalidad del menú hamburguesa -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
