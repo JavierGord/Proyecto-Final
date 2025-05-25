@@ -1,30 +1,41 @@
-# Proyecto: Plataforma Web sobre Contaminación del Aire
+# 🌎 Contaminación del Aire en Zonas Urbanas
 
-## Descripción
+**Proyecto final - Aplicación de Tecnologías Web**  
+Universidad de las Fuerzas Armadas ESPE  
+Docente: Geovanny Cudco  
 
-Este proyecto es una plataforma web educativa que aborda el problema de la contaminación del aire en zonas urbanas. Su objetivo principal es informar a los usuarios sobre los niveles de contaminación, sus efectos y las posibles soluciones tanto a nivel individual como gubernamental.
+## 🧠 Descripción del Problema
 
-La plataforma consta de tres páginas principales:
+La contaminación atmosférica en áreas urbanas representa un grave riesgo para la salud pública y el medio ambiente. Según la OMS, el 90% de la población mundial respira aire con niveles peligrosos de partículas (PM2.5 y PM10). A pesar de ello, muchas personas no conocen el nivel de contaminación en su zona ni cómo protegerse.
 
-- **Inicio:** Explica de forma clara y sencilla el problema de la contaminación del aire, su impacto en la salud y el ambiente, e invita al usuario a explorar el dashboard con datos detallados.
-- **Dashboard:** Presenta un mapa de la ciudad con zonas coloreadas según los niveles de contaminación del aire, gráficos de barras con datos simulados que muestran tendencias, y una tabla dinámica con recomendaciones prácticas para reducir la contaminación.
-- **Soluciones:** Ofrece un listado de acciones individuales y gubernamentales para disminuir la contaminación, junto con un formulario de contacto.
+## 🎯 Objetivo del Proyecto
 
-## Funcionalidades
+Desarrollar un **sitio web estático educativo** que:
+- Explique el impacto de la contaminación del aire.
+- Simule datos de calidad del aire con un dashboard visual.
+- Ofrezca recomendaciones para reducir la exposición.
 
-- Navegación intuitiva entre páginas.
-- Diseño responsive adaptable a dispositivos móviles, tablets y escritorio.
-- Menú hamburguesa para dispositivos con pantallas pequeñas.
-- Visualizaciones de datos claras mediante mapas y gráficos.
-- Formulario de contacto estético para interacción visual.
+## 🛠️ Tecnologías Utilizadas
 
-## Tecnologías Utilizadas
+- **HTML5** y **CSS3** (Flexbox, Grid, variables, transiciones)
+- **Bootstrap 5** para diseño responsive
+- **Google Fonts** y **Font Awesome** para tipografía e íconos
+- **Chart.js** para gráficos simulados
+- **GitHub Pages** (opcional) para publicación
 
-- HTML5 y CSS3
-- Bootstrap 5 para diseño responsivo y componentes UI
-- Google Fonts (Poppins)
-- Librerías de gráficos (pueden agregarse como Chart.js para funcionalidades futuras)
+## 📄 Estructura del Sitio Web
 
+| Página | Descripción |
+|--------|-------------|
+| `index.html` | Página de inicio con introducción al problema y llamado a la acción |
+| `dashboard.html` | Muestra un mapa simulado, un gráfico de PM2.5 y recomendaciones visuales |
+| `soluciones.html` | Propone acciones individuales y gubernamentales; incluye un formulario de contacto no funcional |
+
+## 📱 Diseño Responsive
+
+El sitio se adapta automáticamente a distintos tamaños de pantalla:
+- Navbar con menú hamburguesa en dispositivos pequeños
+- Layouts reorganizados mediante Bootstrap Grid
 
 ---
 
