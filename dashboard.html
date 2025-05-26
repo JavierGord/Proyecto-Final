@@ -1,213 +1,356 @@
-<!-- dashboard.html con carrusel agregado -->
 <!DOCTYPE html>
-<html lang="es"> <!-- Documento en idioma español -->
+<html lang="es">
 <head>
-    <meta charset="UTF-8"> <!-- Codificación UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive para móviles -->
-    <title>Dashboard de Contaminación</title> <!-- Título de la pestaña -->
-
-    <!-- Bootstrap CSS para estilos y diseño responsivo -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="proyect_styles.css">
-    <!-- Biblioteca Chart.js para gráficos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Contaminación</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Estilo para el tooltip que aparece al pasar el mouse sobre las provincias */
+    .tooltip-zona {
+      position: absolute; /* Posicionamiento absoluto para seguir el cursor */
+      background: rgba(0, 0, 0, 0.8); /* Fondo negro semi-transparente */
+      color: #fff; /* Texto blanco */
+      padding: 8px 12px; /* Espaciado interno */
+      border-radius: 6px; /* Bordes redondeados */
+      font-size: 0.85rem; /* Tamaño de fuente */
+      display: none; /* Oculto por defecto */
+      z-index: 1000; /* Asegurar que aparezca encima de otros elementos */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra para mayor visibilidad */
+    }
+    
+    /* Estilos para las provincias en el mapa SVG */
+    svg path {
+      cursor: pointer; /* Cambiar cursor a pointer al pasar sobre las provincias */
+      transition: all 0.2s ease-in-out; /* Transición suave para efectos hover */
+      stroke: #333; /* Color del borde de las provincias */
+      stroke-width: 0.5; /* Grosor del borde */
+    }
+    
+    /* Efectos hover para las provincias */
+    svg path:hover {
+      stroke: #000; /* Borde más oscuro al hacer hover */
+      stroke-width: 2; /* Borde más grueso al hacer hover */
+      filter: brightness(1.1); /* Aumentar brillo ligeramente */
+    }
+    
+    /* Estilos para las etiquetas de texto en el mapa */
+    svg text {
+      font-size: 10px; /* Tamaño de fuente para los nombres de provincias */
+      font-weight: bold; /* Texto en negrita */
+      fill: #333; /* Color del texto */
+      pointer-events: none; /* No interceptar eventos del mouse */
+      text-anchor: middle; /* Centrar texto horizontalmente */
+    }
+  </style>
 </head>
 <body>
-    <!-- Barra de navegación superior -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid"> <!-- Contenedor que ocupa todo el ancho -->
-            <a class="navbar-brand" href="#">Contaminación del Aire</a> <!-- Marca o nombre -->
 
-            <!-- Botón hamburguesa: aparece en pantallas pequeñas y despliega el menú -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Menú que se colapsa / expande al usar el botón hamburguesa -->
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav me-auto"> <!-- Lista de enlaces de navegación -->
-                    <li class="nav-item"><a class="nav-link" href="proyecto.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li> <!-- Página actual -->
-                    <li class="nav-item"><a class="nav-link" href="soluciones.html">Soluciones</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Contenedor principal con margen vertical -->
-    <div class="container my-4">
-        <h2 class="text-center mb-4">Calidad del Aire - Zona Urbana</h2> <!-- Título centrado -->
-
-        <!-- Carrusel para mostrar mensajes educativos -->
-        <div id="infoCarrusel" class="carousel slide mb-4" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Primer ítem activo del carrusel -->
-                <div class="carousel-item active">
-                    <div class="d-block w-100 bg-light p-4 rounded text-center">
-                        <h5>¿Sabías que…?</h5>
-                        <p>Las partículas PM2.5 pueden penetrar profundamente en los pulmones y entrar en el torrente sanguíneo.</p>
-                    </div>
-                </div>
-                <!-- Segundo ítem del carrusel -->
-                <div class="carousel-item">
-                    <div class="d-block w-100 bg-light p-4 rounded text-center">
-                        <h5>Consejo</h5>
-                        <p>Evita las zonas con tráfico denso en horas pico. La contaminación es más alta.</p>
-                    </div>
-                </div>
-                <!-- Tercer ítem del carrusel -->
-                <div class="carousel-item">
-                    <div class="d-block w-100 bg-light p-4 rounded text-center">
-                        <h5>Dato Curioso</h5>
-                        <p>La contaminación del aire causa más muertes que los accidentes de tráfico cada año.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botón para ir al ítem anterior -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#infoCarrusel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <!-- Botón para ir al siguiente ítem -->
-            <button class="carousel-control-next" type="button" data-bs-target="#infoCarrusel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
-
-        <!-- Sección del mapa simulado -->
-        <div class="card shadow p-4 mb-4">
-            <h5 class="card-title">Mapa Simulado</h5>
-            <!-- Imagen que representa el mapa con zonas coloreadas -->
-            <img src="imagen1.jpg" class="img-fluid rounded" alt="Mapa urbano con zonas" style="max-height: 400px;">
-            <p class="mt-2">Zonas coloreadas de manera ilustrativa según niveles de PM2.5.</p>
-        </div>
-
-        <!-- Sección de gráfica de PM2.5 -->
-        <div class="card shadow p-4 mb-4">
-            <h5 class="card-title">Tendencia Horaria de PM2.5</h5>
-            <!-- Canvas donde se dibuja la gráfica con Chart.js -->
-            <canvas id="graficaPM25"></canvas>
-        </div>
-
-        <!-- Indicador visual tipo semáforo para nivel de riesgo -->
-        <div class="card shadow p-4 mb-4">
-            <h5 class="card-title">Nivel de Riesgo Actual</h5>
-            <!-- Div que mostrará el nivel de riesgo con colores y texto -->
-            <div id="indicadorRiesgo" class="p-3 rounded text-white fw-bold text-center">
-                Riesgo: Moderado <!-- Valor inicial estático, será actualizado por JS -->
-            </div>
-        </div>
-
-        <!-- Sección de recomendaciones dinámicas -->
-        <div class="card shadow p-4 mb-4">
-            <h5 class="card-title">Recomendaciones</h5>
-            <!-- Lista donde se insertarán dinámicamente los consejos -->
-            <ul id="recomendacionesDinamicas">
-                <!-- Recomendaciones dinámicas aparecerán aquí -->
-            </ul>
-        </div>
+<!-- Barra de navegación principal -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Contaminación del Aire</a>
+    <!-- Botón para colapsar menú en dispositivos móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Menú de navegación -->
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="proyecto.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="soluciones.html">Soluciones</a></li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <!-- Script con lógica para la gráfica y actualización dinámica -->
-    <script>
-        // Obtener el contexto del canvas para dibujar la gráfica
-        const ctx = document.getElementById('graficaPM25').getContext('2d');
+<!-- Contenedor principal del dashboard -->
+<div class="container my-4">
+  <h2 class="text-center mb-4">Calidad del Aire - Provincias del Ecuador</h2>
+
+  <!-- Sección del mapa interactivo -->
+  <div class="card shadow p-4 mb-4">
+    <h5 class="card-title">Mapa Interactivo de Provincias</h5>
+    <div class="position-relative">
+      <!-- Mapa SVG de Ecuador con todas las provincias -->
+      <svg id="mapa-ecuador" viewBox="0 0 600 700" width="100%" height="600">
+        <!-- Esmeraldas -->
+        <path id="Esmeraldas" d="M80,60 L150,55 L180,80 L190,120 L170,140 L120,130 L90,110 Z" fill="#f94144"></path>
         
-        // Crear una gráfica de barras con Chart.js
-        const grafica = new Chart(ctx, {
-            type: 'bar', // Tipo de gráfica: barras
-            data: {
-                labels: ['6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00'], // Etiquetas en el eje X (horas)
-                datasets: [{
-                    label: 'PM2.5 (µg/m3)', // Etiqueta para la leyenda
-                    data: [35, 42, 55, 70, 60, 45, 30], // Valores de PM2.5 para cada hora
-                    borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de relleno semitransparente
-                    borderWidth: 2, // Grosor del borde
-                    tension: 0.3 // Suavizado de líneas (no afecta barras pero está por defecto)
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true // Eje Y empieza desde cero
-                    }
-                }
-            }
-        });
+        <!-- Carchi -->
+        <path id="Carchi" d="M190,50 L250,45 L270,70 L260,90 L230,95 L190,80 Z" fill="#f8961e"></path>
+        
+        <!-- Imbabura -->
+        <path id="Imbabura" d="M190,80 L260,90 L270,120 L240,130 L200,125 L170,140 Z" fill="#f9c74f"></path>
+        
+        <!-- Pichincha -->
+        <path id="Pichincha" d="M170,140 L240,130 L270,150 L260,180 L220,190 L180,185 L150,170 Z" fill="#90be6d"></path>
+        
+        <!-- Santo Domingo -->
+        <path id="Santo Domingo de los Tsáchilas" d="M120,130 L170,140 L150,170 L120,175 L100,160 Z" fill="#43aa8b"></path>
+        
+        <!-- Manabí -->
+        <path id="Manabí" d="M80,160 L120,175 L150,200 L140,250 L120,280 L80,290 L50,270 L40,220 L60,180 Z" fill="#277da1"></path>
+        
+        <!-- Los Ríos -->
+        <path id="Los Ríos" d="M120,175 L180,185 L190,220 L170,240 L150,235 L140,210 Z" fill="#4d908e"></path>
+        
+        <!-- Guayas -->
+        <path id="Guayas" d="M80,290 L140,280 L170,300 L180,340 L160,370 L120,380 L80,370 L60,340 Z" fill="#52b788"></path>
+        
+        <!-- Santa Elena -->
+        <path id="Santa Elena" d="M60,340 L80,370 L70,390 L40,390 L30,370 Z" fill="#74c69d"></path>
+        
+        <!-- Cotopaxi -->
+        <path id="Cotopaxi" d="M180,185 L220,190 L240,220 L220,240 L190,235 L170,220 Z" fill="#95d5b2"></path>
+        
+        <!-- Tungurahua -->
+        <path id="Tungurahua" d="M220,240 L240,220 L260,235 L250,255 L230,260 Z" fill="#b5e48c"></path>
+        
+        <!-- Bolívar -->
+        <path id="Bolívar" d="M190,235 L220,240 L230,260 L210,275 L180,270 L170,250 Z" fill="#d9ed92"></path>
+        
+        <!-- Chimborazo -->
+        <path id="Chimborazo" d="M230,260 L260,255 L280,275 L270,295 L240,300 L220,285 L210,275 Z" fill="#a8dadc"></path>
+        
+        <!-- Cañar -->
+        <path id="Cañar" d="M180,270 L210,275 L220,295 L200,310 L170,305 Z" fill="#457b9d"></path>
+        
+        <!-- Azuay -->
+        <path id="Azuay" d="M170,305 L220,295 L240,320 L220,350 L180,345 L160,325 Z" fill="#1d3557"></path>
+        
+        <!-- El Oro -->
+        <path id="El Oro" d="M120,380 L160,370 L180,390 L170,420 L140,430 L110,420 L90,400 Z" fill="#f1faee"></path>
+        
+        <!-- Loja -->
+        <path id="Loja" d="M160,325 L220,350 L240,380 L220,420 L180,430 L170,420 L160,390 Z" fill="#e63946"></path>
+        
+        <!-- Zamora Chinchipe -->
+        <path id="Zamora Chinchipe" d="M220,420 L270,400 L290,430 L280,470 L250,480 L220,460 Z" fill="#a8dadc"></path>
+        
+        <!-- Sucumbíos -->
+        <path id="Sucumbíos" d="M270,70 L350,65 L380,90 L370,120 L340,130 L300,125 L270,120 Z" fill="#f94144"></path>
+        
+        <!-- Orellana -->
+        <path id="Orellana" d="M300,125 L370,120 L390,150 L380,190 L350,200 L320,185 L280,175 L270,150 Z" fill="#f8961e"></path>
+        
+        <!-- Napo -->
+        <path id="Napo" d="M260,180 L320,185 L340,220 L320,250 L280,255 L260,235 Z" fill="#f9c74f"></path>
+        
+        <!-- Pastaza -->
+        <path id="Pastaza" d="M280,255 L340,220 L380,240 L390,280 L370,320 L340,330 L310,315 L280,295 Z" fill="#90be6d"></path>
+        
+        <!-- Morona Santiago -->
+        <path id="Morona Santiago" d="M270,295 L340,330 L360,370 L340,410 L310,420 L280,400 L250,380 L240,350 Z" fill="#43aa8b"></path>
+        
+        <!-- Galápagos (islas separadas) -->
+        <g id="Galápagos">
+          <circle cx="450" cy="300" r="8" fill="#277da1"></circle>
+          <circle cx="470" cy="320" r="6" fill="#277da1"></circle>
+          <circle cx="460" cy="340" r="5" fill="#277da1"></circle>
+          <circle cx="480" cy="310" r="4" fill="#277da1"></circle>
+          <text x="465" y="370" font-size="10">Galápagos</text>
+        </g>
+        
+        <!-- Etiquetas de todas las provincias -->
+        <text x="125" y="95">Esmeraldas</text>
+        <text x="225" y="70">Carchi</text>
+        <text x="205" y="110">Imbabura</text>
+        <text x="210" y="165">Pichincha</text>
+        <text x="135" y="155">S. Domingo</text>
+        <text x="110" y="230">Manabí</text>
+        <text x="155" y="215">Los Ríos</text>
+        <text x="120" y="330">Guayas</text>
+        <text x="50" y="375">Santa Elena</text>
+        <text x="200" y="210">Cotopaxi</text>
+        <text x="245" y="250">Tungurahua</text>
+        <text x="190" y="255">Bolívar</text>
+        <text x="255" y="285">Chimborazo</text>
+        <text x="185" y="290">Cañar</text>
+        <text x="190" y="335">Azuay</text>
+        <text x="125" y="405">El Oro</text>
+        <text x="190" y="385">Loja</text>
+        <text x="245" y="450">Z. Chinchipe</text>
+        <text x="325" y="95">Sucumbíos</text>
+        <text x="335" y="155">Orellana</text>
+        <text x="290" y="215">Napo</text>
+        <text x="335" y="275">Pastaza</text>
+        <text x="305" y="375">M. Santiago</text>
+      </svg>
+      <div id="tooltip" class="tooltip-zona"></div>
+    </div>
+    <p class="mt-2">Pasa el mouse por una provincia para ver su calidad del aire y hora pico.</p>
+  </div>
 
-        // Variables para mostrar el nivel de riesgo y recomendaciones
-        const riesgo = document.getElementById('indicadorRiesgo');
-        const recomendaciones = document.getElementById('recomendacionesDinamicas');
-        const horaActual = new Date().getHours(); // Obtener la hora actual local
-        let valorPM;
+  <div class="card shadow p-4 mb-4">
+    <h5 class="card-title">Nivel de Riesgo Actual</h5>
+    <div id="indicadorRiesgo" class="p-3 rounded text-white fw-bold text-center">Riesgo: --</div>
+  </div>
 
-        // Asignar un valor simulado de PM2.5 basado en la hora actual
-        if (horaActual >= 6 && horaActual < 10) {
-            valorPM = 30; // Nivel bajo de contaminación en la mañana
-        } else if (horaActual >= 10 && horaActual < 14) {
-            valorPM = 50; // Nivel moderado a mediodía
-        } else if (horaActual >= 14 && horaActual < 18) {
-            valorPM = 70; // Nivel alto en la tarde
-        } else if (horaActual >= 18 && horaActual <= 23) {
-            valorPM = 45; // Moderado en la noche
+  <div class="card shadow p-4 mb-4">
+    <h5 class="card-title">Tendencia Horaria PM2.5</h5>
+    <canvas id="graficaPM25"></canvas>
+  </div>
+
+  <div class="card shadow p-4 mb-4">
+    <h5 class="card-title">Recomendaciones</h5>
+    <ul id="recomendacionesDinamicas"></ul>
+  </div>
+</div>
+
+<script>
+  // Datos de contaminación PM2.5 por provincia (µg/m³) y horas pico de mayor contaminación
+  const datosProvincias = {
+    'Esmeraldas': { pm: 70, hora: '07:00 - 09:00' },
+    'Carchi': { pm: 35, hora: '06:00 - 08:00' },
+    'Imbabura': { pm: 42, hora: '07:30 - 09:30' },
+    'Pichincha': { pm: 65, hora: '06:30 - 08:30' },
+    'Santo Domingo de los Tsáchilas': { pm: 58, hora: '07:00 - 09:00' },
+    'Manabí': { pm: 45, hora: '08:00 - 10:00' },
+    'Los Ríos': { pm: 52, hora: '07:30 - 09:30' },
+    'Guayas': { pm: 75, hora: '08:00 - 10:00' },
+    'Santa Elena': { pm: 38, hora: '09:00 - 11:00' },
+    'Cotopaxi': { pm: 48, hora: '06:30 - 08:30' },
+    'Tungurahua': { pm: 55, hora: '07:00 - 09:00' },
+    'Bolívar': { pm: 40, hora: '08:00 - 10:00' },
+    'Chimborazo': { pm: 46, hora: '07:30 - 09:30' },
+    'Cañar': { pm: 32, hora: '08:30 - 10:30' },
+    'Azuay': { pm: 38, hora: '07:00 - 09:00' },
+    'El Oro': { pm: 62, hora: '08:00 - 10:00' },
+    'Loja': { pm: 25, hora: '09:00 - 11:00' },
+    'Zamora Chinchipe': { pm: 28, hora: '08:30 - 10:30' },
+    'Sucumbíos': { pm: 44, hora: '07:00 - 09:00' },
+    'Orellana': { pm: 41, hora: '07:30 - 09:30' },
+    'Napo': { pm: 36, hora: '08:00 - 10:00' },
+    'Pastaza': { pm: 33, hora: '08:30 - 10:30' },
+    'Morona Santiago': { pm: 29, hora: '09:00 - 11:00' },
+    'Galápagos': { pm: 15, hora: '10:00 - 12:00' }
+  };
+
+  // Elementos del DOM para mostrar información
+  const tooltip = document.getElementById('tooltip');
+  const riesgo = document.getElementById('indicadorRiesgo');
+  const recomendaciones = document.getElementById('recomendacionesDinamicas');
+
+  // Evento mousemove para mostrar información al pasar el mouse sobre las provincias
+  document.querySelectorAll('#mapa-ecuador path, #mapa-ecuador g').forEach(element => {
+    element.addEventListener('mousemove', e => {
+      const id = element.id; // ID de la provincia
+      const data = datosProvincias[id]; // Datos de contaminación de la provincia
+      
+      if (data) {
+        // Mostrar tooltip con información de la provincia
+        tooltip.innerHTML = `<strong>${id}</strong><br>PM2.5: ${data.pm} µg/m³<br>Hora Pico: ${data.hora}`;
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+        tooltip.style.display = 'block';
+
+        // Determinar nivel de riesgo basado en concentración PM2.5
+        let nivel = '', color = '', consejos = [];
+        if (data.pm > 55) {
+          // Riesgo alto: mayor a 55 µg/m³
+          nivel = 'Riesgo: Alto'; 
+          color = '#dc3545'; // Color rojo
+          consejos = [
+            'Evita actividades al aire libre prolongadas', 
+            'Usa mascarilla N95 al salir', 
+            'Mantén puertas y ventanas cerradas', 
+            'Considera usar purificador de aire'
+          ];
+        } else if (data.pm > 35) {
+          // Riesgo moderado: entre 35 y 55 µg/m³
+          nivel = 'Riesgo: Moderado'; 
+          color = '#fd7e14'; // Color naranja
+          consejos = [
+            'Limita el ejercicio intenso al aire libre', 
+            'Personas sensibles deben reducir la exposición', 
+            'Ventila tu hogar en horas de menor contaminación'
+          ];
         } else {
-            valorPM = 25; // Bajo durante la madrugada
+          // Riesgo bajo: menor a 35 µg/m³
+          nivel = 'Riesgo: Bajo'; 
+          color = '#198754'; // Color verde
+          consejos = [
+            'Puedes realizar actividades normales al aire libre', 
+            'Buen momento para ventilar tu hogar', 
+            'Ideal para ejercitarse al aire libre'
+          ];
         }
-
-        // Variables para almacenar el nivel de riesgo, color y consejos correspondientes
-        let nivel = '';
-        let color = '';
-        let consejos = [];
-
-        // Determinar nivel de riesgo, color y recomendaciones según valor de PM2.5
-        if (valorPM > 60) {
-            nivel = 'Riesgo: Alto';
-            color = 'red';
-            consejos = [
-                'Evite salir al aire libre.',
-                'Use mascarillas con filtro (N95 o superior).',
-                'Cierre puertas y ventanas.',
-                'Utilice purificadores de aire si es posible.'
-            ];
-        } else if (valorPM > 35) {
-            nivel = 'Riesgo: Moderado';
-            color = 'orange';
-            consejos = [
-                'Limite actividades físicas prolongadas en el exterior.',
-                'Personas sensibles deben evitar exposición prolongada.',
-                'Use mascarilla si se siente incómodo.'
-            ];
-        } else {
-            nivel = 'Riesgo: Bajo';
-            color = 'green';
-            consejos = [
-                'Puede realizar actividades al aire libre con normalidad.',
-                'Mantenga hábitos saludables de ventilación.',
-                'Evite fuentes de contaminación innecesarias.'
-            ];
-        }
-
-        // Actualizar el color de fondo y texto del indicador de riesgo
+        
+        // Actualizar indicador de riesgo
         riesgo.style.backgroundColor = color;
         riesgo.textContent = nivel;
-
-        // Limpiar recomendaciones anteriores
+        
+        // Actualizar lista de recomendaciones
         recomendaciones.innerHTML = '';
-
-        // Insertar las recomendaciones actuales como elementos <li> en la lista
-        consejos.forEach(consejo => {
-            const li = document.createElement('li');
-            li.textContent = consejo;
-            recomendaciones.appendChild(li);
+        consejos.forEach(c => {
+          const li = document.createElement('li');
+          li.textContent = c;
+          li.className = 'mb-1';
+          recomendaciones.appendChild(li);
         });
-    </script>
+      }
+    });
+    
+    // Ocultar tooltip cuando el mouse sale de la provincia
+    element.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
 
-    <!-- Bootstrap JS para funcionalidades dinámicas como el carrusel -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  // Crear gráfico de tendencia horaria de PM2.5
+  const ctx = document.getElementById('graficaPM25').getContext('2d');
+  new Chart(ctx, {
+    type: 'line', // Tipo de gráfico: línea
+    data: {
+      // Etiquetas del eje X (horas del día)
+      labels: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      datasets: [{
+        label: 'PM2.5 (µg/m³)', // Etiqueta del dataset
+        // Datos simulados de concentración PM2.5 a lo largo del día
+        data: [30, 45, 65, 75, 68, 55, 48, 52, 58, 62, 70, 68, 45],
+        borderColor: 'rgba(255, 99, 132, 1)', // Color de la línea
+        backgroundColor: 'rgba(255, 99, 132, 0.1)', // Color de relleno
+        fill: true, // Rellenar área bajo la línea
+        tension: 0.4, // Suavizado de la línea
+        pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Color de los puntos
+        pointBorderColor: '#fff', // Color del borde de los puntos
+        pointBorderWidth: 2, // Grosor del borde de los puntos
+        pointRadius: 5 // Tamaño de los puntos
+      }]
+    },
+    options: {
+      responsive: true, // Gráfico responsivo
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top' // Posición de la leyenda
+        }
+      },
+      scales: {
+        y: { 
+          beginAtZero: true, // Iniciar eje Y desde cero
+          title: {
+            display: true,
+            text: 'Concentración PM2.5 (µg/m³)' // Título del eje Y
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Hora del día' // Título del eje X
+          }
+        }
+      },
+      interaction: {
+        intersect: false, // Interacción sin necesidad de intersección exacta
+        mode: 'index' // Modo de interacción por índice
+      }
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
